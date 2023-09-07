@@ -21,7 +21,7 @@
 </div>
 
 <div>
-    <div>커스텀확장자</div>
+    <div>커스텀확장자d</div>
     <input type="text" id="customExtension" placeholder="확장자 입력">
     <button onclick="addExtension()">+추가</button>
 </div>
