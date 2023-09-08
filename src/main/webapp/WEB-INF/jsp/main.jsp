@@ -1,7 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>파일 확장자 차단 설정</title>
@@ -11,34 +13,47 @@
 <div>파일확장자에 따라 특정 형식의 파일을 첨부하거나 전송하지 못하도록 제한</div>
 <div>
     <div>고정확장자</div>
-    <input type="checkbox" id="bat" name="bat"><label for="bat">bat</label>
-    <input type="checkbox" id="cmd" name="cmd"><label for="cmd">cmd</label>
-    <input type="checkbox" id="com" name="com"><label for="com">com</label>
-    <input type="checkbox" id="cpl" name="cpl"><label for="cpl">cpl</label>
-    <input type="checkbox" id="exe" name="exe"><label for="exe">exe</label>
-    <input type="checkbox" id="scr" name="scr"><label for="scr">scr</label>
-    <input type="checkbox" id="js" name="js"><label for="js">js</label>
+    <c:forEach var="item" items="${list}">
+        <input type="checkbox" id="${item.nm}" name="${item.nm}"
+            <c:if test="${item.chk ne '0'}">checked</c:if>
+        onchange="fnDefaultControll('${item.no}','${item.nm}',this.checked)"><label for="${item.nm}">${item.nm}</label>
+    </c:forEach>
 </div>
 
 <div>
-    <div>커스텀확장자d</div>
-    <input type="text" id="customExtension" placeholder="확장자 입력">
-    <button onclick="addExtension()">+추가</button>
+    <div>커스텀확장자</div>
+    <input type="text" id="customExtension" placeholder="확장자 입력" maxlength="20">
+    <button onclick="fnCustomControll()">+추가</button>
+    <div>${cnt} / 200</div>
 </div>
 
-<div style="width: 200px; height: 200px; border: 1px solid black;" id="extensionList"></div>
+<div style="width: 500px; height: 200px; border: 1px solid black;" id="extensionList"></div>
 
 <script>
-    function addExtension() {
-        const input = document.getElementById('customExtension');
-        const list = document.getElementById('extensionList');
+$(function(){
 
-        const div = document.createElement('div');
-        div.textContent = input.value;
-        list.appendChild(div);
 
-        input.value = ''; // 입력필드 초기화
-    }
+})
+
+function fnDefaultControll(no, nm, chk){
+    var param = {"no":no, "nm":nm, "chk":chk};
+
+    $.ajax({
+        url:"/defaultControll",
+        method:"POST",
+        data:param,
+        success:function(response){
+
+        },
+        error:function(){
+
+        }
+    })
+}
+
+function fnCustomControll(){
+
+}
 </script>
 </body>
 </html>

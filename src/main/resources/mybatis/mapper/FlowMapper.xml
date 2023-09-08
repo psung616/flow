@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.flow.mapper.FlowMapper">
+
+    <select id="selectAll" resultType="map">
+        select no, nm, chk from tb_ext
+    </select>
+
+    <select id="selectAllCnt" resultType="int">
+        select count(1) as cnt from tb_custom
+    </select>
+
+    <update id="updateDefault" parameterType="map">
+        update tb_ext set
+            chk = #{chk}
+        where no = #{no}
+    </update>
+
+    <insert id="insertCustom" parameterType="map">
+        insert into tb_custom
+        (nm) values (#{nm})
+    </insert>
+
+    <insert id="deleteCustom" parameterType="map">
+        delete from tb_custom
+        where nm = #{nm}
+    </insert>
+
+</mapper>
