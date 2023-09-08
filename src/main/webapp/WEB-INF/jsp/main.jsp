@@ -10,6 +10,8 @@
     <title>파일 확장자 차단 설정</title>
 </head>
 <style>
+    /* 스타일코드는 인터넷검색을 통해 가져왔습니다. 참고부탁드립니다.  */
+
     .button-wrapper {
         display: inline-flex;  /* 가로로 나란히 배열 */
         align-items: center;  /* 수직 중앙 정렬 */
@@ -29,6 +31,7 @@
         margin-left: 5px;
         cursor: pointer;  /* 마우스를 올렸을 때 포인터로 보이게 함 */
     }
+
 </style>
 <body>
 <div style="font-size: 24px; font-weight: bold;">◎ 파일 확장자 차단</div>
@@ -58,10 +61,5 @@
         </div>
     </c:forEach>
 </div>
-<script>
-$(function(){
-
-})
-</script>
 </body>
 </html>

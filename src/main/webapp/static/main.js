@@ -7,15 +7,16 @@ function fnDefaultControll(no, nm, chk){
         data:param,
         success:function(response){
             fnCnt();
-        },
-        error:function(){
-
+        },error:function(jqXHR, textStatus, errorThrown){
+            alert('작업 중 에러가 발생했습니다: ' + textStatus);
         }
     })
 }
 
 function fnCustomControll(){
     var customExtension = $("#customExtension").val();
+
+    // 공백여부검사
     if(customExtension == ""){
         alert("확장자를 입력해주세요.");
         $("#customExtension").focus();
@@ -37,30 +38,44 @@ function fnCustomControll(){
         return;
     }
 
+    // 정규식 검사
+    var regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    if(regex.test(customExtension)){
+        alert("특수문자를 포함할 수 없습니다.");
+        $("#customExtension").val("").focus();
+        return;
+    }
+
+    if($(".button-wrapper").length >= 200){
+        alert("커스텀 확장자는 200개를 초과할수 없습니다.");
+        return;
+    }
+
     var param = {"customExt":$("#customExtension").val()};
 
     $.ajax({
         url:"/customAdd",
         method: "POST",
         data: param,
-        success:function(response){
-            console.log(response);
-        }, error:function(){
-
-        }
-    })
-
-    // 버튼 추가
-    var html = `<div class="button-wrapper">
+        success:function(response) {
+            // 버튼 추가
+            var html = `<div class="button-wrapper">
                    <span class="button-text">${customExtension}</span>
                    <span class="close-btn" onclick="fnDelete(this, '${customExtension}')">×</span>
                 </div>`;
-    $("#extensionList").append(html);
+            $("#extensionList").append(html);
 
-    fnCnt();
+            fnCnt();
+        },error:function(jqXHR, textStatus, errorThrown){
+            alert('작업 중 에러가 발생했습니다: ' + textStatus);
+        }
+    })
 }
 
 function fnDelete(obj, nm){
+    var $parent = $(obj).parent();
+    $parent.remove();
+
     var param = {"nm":nm};
     $.ajax({
         url:"/customDel",
@@ -69,11 +84,12 @@ function fnDelete(obj, nm){
         success:function(response){
 
         },error:function(){
-
+            // 삭제에 실패하면 화면에 다시 추가해준다.
+            $("#extensionList").append($parent);
         }
     })
 
-    $(obj).parent().remove();
+
     fnCnt();
 }
 

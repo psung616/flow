@@ -44,11 +44,6 @@ public class FlowController {
 
         flowService.updateDefault(map);
 
-        /*if(chk == true){
-            flowService.insertCustom(map);
-        }else{
-            flowService.deleteCustom(map);
-        }*/
 
         return ResponseEntity.ok(map);
     }
@@ -59,7 +54,6 @@ public class FlowController {
         map.put("nm",customExt);
 
         flowService.insertCustom(map);
-
 
         return ResponseEntity.ok(map);
     }
