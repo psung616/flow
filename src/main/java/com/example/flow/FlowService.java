@@ -17,7 +17,6 @@ public class FlowService {
         return flowMapper.selectAll();
     }
 
-
     public int selectAllCnt() {
         return flowMapper.selectAllCnt();
     }
@@ -32,5 +31,9 @@ public class FlowService {
 
     public void deleteCustom(Map<String, Object> map) {
         flowMapper.deleteCustom(map);
+    }
+
+    public List<String> selectCustomAll() {
+        return flowMapper.selectCustomAll();
     }
 }

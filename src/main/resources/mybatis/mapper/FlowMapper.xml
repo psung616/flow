@@ -27,4 +27,7 @@
         where nm = #{nm}
     </insert>
 
+    <select id="selectCustomAll" resultType="map">
+        select no, nm from tb_custom
+    </select>
 </mapper>

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,9 @@ public class FlowController {
         int cnt = flowService.selectAllCnt();
         model.addAttribute("cnt",cnt);
 
+        List<String> list2 = flowService.selectCustomAll();
+        model.addAttribute("list2",list2);
+
         return "main";
     }
 
@@ -40,15 +44,35 @@ public class FlowController {
 
         flowService.updateDefault(map);
 
-        if(chk == true){
+        /*if(chk == true){
             flowService.insertCustom(map);
         }else{
             flowService.deleteCustom(map);
-        }
+        }*/
+
+        return ResponseEntity.ok(map);
+    }
+
+    @PostMapping("/customAdd")
+    public ResponseEntity<Map<String,Object>> customAdd(@RequestParam("customExt") String customExt){
+        Map<String, Object> map = new HashMap<>();
+        map.put("nm",customExt);
+
+        flowService.insertCustom(map);
 
 
         return ResponseEntity.ok(map);
     }
 
+    @DeleteMapping("/customDel")
+    public ResponseEntity<Map<String,Object>> customDel(@RequestParam("nm") String nm){
+        Map<String, Object> map = new HashMap<>();
+        map.put("nm",nm);
+
+        flowService.deleteCustom(map);
+
+
+        return ResponseEntity.ok(map);
+    }
 
 }
