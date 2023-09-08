@@ -1,8 +1,9 @@
 # flow
+```
 서버주소 : http://3.37.26.58:8080/
 인프라 : AWS EC2, AWS RDS
 언어 및 프레임워크 : JAVA, SPRING BOOT, JSP, JAVASCRIPT, JQUERY, MYBATIS, MYSQL
-
+```
 # DB 정보
 ```
 - 고정확장자가 저장될 테이블
